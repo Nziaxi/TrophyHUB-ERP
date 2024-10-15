@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class BomController extends Controller
 {
@@ -13,10 +14,14 @@ class BomController extends Controller
     }
 
     public function create()
-    {
-        // Logic untuk menampilkan form tambah BoM
-        return view('bom.create');  // Buat view bom.create untuk form tambah BoM
-    }
+{
+    // Ambil data produk dari database
+    $products = Product::all(); // Atau sesuaikan dengan model produk Anda
+
+    // Kirim data produk ke view
+    return view('bom.create', compact('products'));
+}
+
 
     public function store(Request $request)
     {

@@ -19,7 +19,8 @@
                     <div class="card h-100">
                         <!-- Gambar Produk -->
                         @if($product->product_image)
-                            <img src="{{ asset('storage/' . $product->product_image) }}" class="card-img-top" alt="{{ $product->product_name }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ asset('storage/' . $product->product_image) }}" class="card-img-top" alt="{{ $product->product_name }}" style="height: 200px; object-fit: cover;">
+
                         @else
                             <img src="{{ asset('images/no-image.png') }}" class="card-img-top" alt="No image available" style="height: 200px; object-fit: cover;">
                         @endif
