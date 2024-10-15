@@ -42,7 +42,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/bom') }}"
+                    <a href="{{ url('/bom/add') }}"
                         class="nav-link {{ Route::currentRouteName() == 'products' ? 'active' : '' }} font-weight-medium"
                         style="color: #000;">
                         <p>

@@ -20,25 +20,24 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // Validate form data
-        $validatedData = $request->validate([
-            'product_name' => 'required|max:255',
-            'category' => 'required',
-            'description' => 'nullable',
-            'product_image' => 'nullable|image',
-            'selling_price' => 'required|numeric',
-            'production_cost' => 'required|numeric',
-        ]);
+    $validatedData = $request->validate([
+        'product_name' => 'required',
+        'category' => 'required',
+        'description' => 'nullable',
+        'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'selling_price' => 'required|numeric',
+        'production_cost' => 'required|numeric',
+    ]);
 
-        // Save the product image if available
-        if ($request->hasFile('product_image')) {
-            $path = $request->file('product_image')->store('public/products');
-            $validatedData['product_image'] = $path;
-        }
-
-        // Create a new product
-        Product::create($validatedData);
-
-        return redirect()->route('products.index')->with('success', 'Product added successfully!');
+    // Jika ada gambar yang diunggah
+    if ($request->hasFile('product_image')) {
+        $path = $request->file('product_image')->store('products', 'public'); // Simpan ke folder 'products' di disk 'public'
+        $validatedData['product_image'] = $path; // Simpan path gambar ke dalam database
     }
+
+    Product::create($validatedData);
+
+    return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
+    }
+
 }
