@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('/product/add') }}"
+                    <a href="{{ url('/products') }}"
                         class="nav-link {{ Route::currentRouteName() == 'products' ? 'active' : '' }} font-weight-medium"
                         style="color: #000;">
                         <p>Produk</p>
@@ -37,6 +37,16 @@
                         style="color: #000;">
                         <p>
                             Bahan
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/bom') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'products' ? 'active' : '' }} font-weight-medium"
+                        style="color: #000;">
+                        <p>
+                            BoM
                         </p>
                     </a>
                 </li>

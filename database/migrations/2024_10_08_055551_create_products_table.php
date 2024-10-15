@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('category');            // Kategori Produk
             $table->text('description')->nullable(); // Deskripsi Produk
             $table->string('product_image')->nullable(); // Gambar Produk
-            $table->integer('selling_price', 10, 2);  // Harga Jual
-            $table->integer('production_cost', 10, 2); // Harga Produksi
+            $table->integer('selling_price');  // Harga Jual
+            $table->integer('production_cost'); // Harga Produksi
             $table->timestamps();
         });
     }

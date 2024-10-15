@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
+    public function index()
+    {
+        $products = Product::all(); // Ambil semua data produk
+        return view('products.index', compact('products'));
+    }
+
     public function create()
     {
         return view('products.create');  // Return the view for adding products
@@ -23,10 +30,15 @@ class ProductController extends Controller
             'production_cost' => 'required|numeric',
         ]);
 
+        // Save the product image if available
         if ($request->hasFile('product_image')) {
             $path = $request->file('product_image')->store('public/products');
-        }        
+            $validatedData['product_image'] = $path;
+        }
 
-        return redirect()->back()->with('success', 'Product added successfully!');
+        // Create a new product
+        Product::create($validatedData);
+
+        return redirect()->route('products.index')->with('success', 'Product added successfully!');
     }
 }
