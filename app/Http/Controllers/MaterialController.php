@@ -3,30 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Material;
 
 class MaterialController extends Controller
 {
+    public function index()
+    {
+        $materials = Material::all();
+        return view('materials.index', compact('materials'));
+    }
     public function create()
     {
-        return view('materials.create');  // Return the view for adding products
+        return view('materials.create');
     }
 
     public function store(Request $request)
     {
-        // Validate form data
-        $validatedData = $request->validate([
-            'material_name' => 'required|max:255',
-            'category' => 'required',
-            'description' => 'nullable',
-            'material_image' => 'nullable|image',
-            'unit' => 'required',
-            'price' => 'required|numeric',
-        ]);
+        $request->validate(['material_name' => 'required', 'unit' => 'required', 'price' => 'required|numeric',]);
+        Material::create(['material_name' => $request->material_name, 'unit' => $request->unit, 'price' => $request->price,]);
+        return redirect()->route('materials.index');
+    }
 
-        if ($request->hasFile('material_image')) {
-            $path = $request->file('material_image')->store('public/materials');
-        }        
+    public function edit($id)
+    {
+        $material = Material::findOrFail($id);
+        return view('materials.edit', compact('material'));
+    }
 
-        return redirect()->back()->with('success', 'Material added successfully!');
+    public function update(Request $request, $id)
+    {
+        $request->validate(['material_name' => 'required', 'unit' => 'required', 'price' => 'required|numeric',]);
+        $material = Material::findOrFail($id);
+        $material->update(['material_name' => $request->material_name, 'unit' => $request->unit, 'price' => $request->price,]);
+        return redirect()->route('materials.index');
+    }
+
+    public function destroy($id)
+    {
+        $material = Material::findOrFail($id);
+        $material->delete();
+        return redirect()->route('materials.index');
     }
 }

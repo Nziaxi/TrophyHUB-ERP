@@ -26,8 +26,10 @@ Route::get('/products/add', [ProductController::class, 'create'])->name('product
 Route::post('/products/add', [ProductController::class, 'store'])->name('products.store');
 
 // Route untuk Material
-Route::get('/material/add', [MaterialController::class, 'create'])->name('material.create');
-Route::post('/material/add', [MaterialController::class, 'store'])->name('material.store');
+Route::resource('materials', MaterialController::class)->names('materials');
+// Route::get('/material', [MaterialController::class, 'index'])->name('materials.index');
+// Route::get('/material/add', [MaterialController::class, 'create'])->name('material.create');
+// Route::post('/material/add', [MaterialController::class, 'store'])->name('material.store');
 
 // Route untuk BoM
 Route::get('/bom', [BomController::class, 'index'])->name('bom.index');

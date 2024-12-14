@@ -9,7 +9,7 @@ class Product extends Model
 {
     protected $table = 'products';
     protected $fillable = [
-        'product_name', 
+        'product_name',
         'category',
         'description',
         'product_image',
@@ -17,4 +17,3 @@ class Product extends Model
         'production_cost',
     ];
 }
-
