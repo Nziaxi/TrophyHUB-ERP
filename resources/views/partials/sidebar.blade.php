@@ -36,7 +36,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="{{ url('/bom/add') }}" class="nav-link {{ Route::currentRouteName() == 'products' ? 'active' : '' }} font-weight-medium"
+          <a href="{{ route('bom.index') }}" class="nav-link {{ Route::currentRouteName() == 'bom*' ? 'active' : '' }} font-weight-medium"
             style="color: #000;">
             <p>
               BoM

@@ -16,4 +16,9 @@ class Product extends Model
         'selling_price',
         'production_cost',
     ];
+
+    public function billOfMaterials()
+    {
+        return $this->hasMany(BillOfMaterial::class, 'product_id');
+    }
 }
