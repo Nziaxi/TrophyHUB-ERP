@@ -40,7 +40,7 @@
         </thead>
         <tbody id="bom-components">
           @foreach ($bom->components as $index => $component)
-            <tr>
+            <tr id="component-row-{{ $index }}">
               <td>
                 <select name="components[{{ $index }}][material_id]" class="form-control" required>
                   <option value="">Pilih Komponen</option>
@@ -55,9 +55,13 @@
                 <input type="number" name="components[{{ $index }}][quantity]" class="form-control" placeholder="Quantity"
                   value="{{ old('components.' . $index . '.quantity', $component->quantity) }}" step="0.01" required>
               </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm remove-component" data-index="{{ $index }}">Hapus</button>
+              </td>
             </tr>
           @endforeach
         </tbody>
+
       </table>
       <button type="button" id="add-component" class="btn btn-link">Tambah Komponen</button>
 
@@ -69,23 +73,51 @@
 
   <script>
     let componentCount = {{ count($bom->components) }};
+
+    // Event listener untuk menambah komponen baru
     document.getElementById('add-component').addEventListener('click', function() {
       const newRow = document.createElement('tr');
+      newRow.id = `component-row-${componentCount}`;
       newRow.innerHTML = `
-                <td>
-                    <select name="components[${componentCount}][material_id]" class="form-control" required>
-                        <option value="">Pilih Komponen</option>
-                        @foreach ($materials as $material)
-                            <option value="{{ $material->id }}">{{ $material->material_name }}</option>
-                        @endforeach
-                    </select>
-                </td>
-                <td>
-                    <input type="number" name="components[${componentCount}][quantity]" class="form-control" placeholder="Quantity" step="0.01" required>
-                </td>
-            `;
+        <td>
+          <select name="components[${componentCount}][material_id]" class="form-control" required>
+            <option value="">Pilih Komponen</option>
+            @foreach ($materials as $material)
+              <option value="{{ $material->id }}">{{ $material->material_name }}</option>
+            @endforeach
+          </select>
+        </td>
+        <td>
+          <input type="number" name="components[${componentCount}][quantity]" class="form-control" placeholder="Quantity" step="0.01" required>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm remove-component" data-index="${componentCount}">Hapus</button>
+        </td>
+      `;
       document.getElementById('bom-components').appendChild(newRow);
       componentCount++;
+      attachRemoveEvent();
     });
+
+    // Fungsi untuk menambahkan event listener ke tombol "Hapus"
+    function attachRemoveEvent() {
+      const removeButtons = document.querySelectorAll('.remove-component');
+      removeButtons.forEach(button => {
+        button.removeEventListener('click', removeComponent);
+        button.addEventListener('click', removeComponent);
+      });
+    }
+
+    // Fungsi untuk menghapus baris bahan material
+    function removeComponent(event) {
+      const index = event.target.getAttribute('data-index');
+      const row = document.getElementById(`component-row-${index}`);
+      if (row) {
+        row.remove();
+      }
+    }
+
+    // Attach event listener untuk komponen yang sudah ada
+    attachRemoveEvent();
   </script>
 @endsection
