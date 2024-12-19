@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\BomController;
+use App\Http\Controllers\ManufacturingOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,5 @@ Route::resource('bom', BomController::class)->names('bom');
 // Route::get('/bom', [BomController::class, 'index'])->name('bom.index');
 // Route::get('/bom/add', [BomController::class, 'create'])->name('bom.create');
 // Route::post('/bom/add', [BomController::class, 'store'])->name('bom.store');
+
+Route::resource('mo', ManufacturingOrderController::class)->names('mo');

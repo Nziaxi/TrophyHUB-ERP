@@ -9,11 +9,18 @@ class Material extends Model
 {
     use HasFactory;
 
-    protected $table = 'material'; // Name of the table
+    protected $table = 'material';
     protected $fillable = ['material_name', 'unit', 'price'];
 
-    public function bomComponents()
+    public function manufacturingOrderMaterials()
     {
-        return $this->hasMany(BomComponent::class);
+        return $this->hasMany(ManufacturingOrderMaterial::class);
+    }
+
+    public function manufacturingOrders()
+    {
+        return $this->belongsToMany(ManufacturingOrder::class, 'manufacturing_order_materials')
+            ->withPivot('required_quantity', 'ordered_quantity', 'used_quantity')
+            ->withTimestamps();
     }
 }

@@ -5,7 +5,7 @@
 @section('content')
   <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3>Daftar Bill of Materials (BoM)</h3>
+      <h1 class="mb-4">Daftar Bill of Materials (BoM)</h1>
       <a href="{{ route('bom.create') }}" class="btn btn-primary">Tambah BoM</a>
     </div>
 

@@ -30,7 +30,7 @@
           <a href="{{ route('materials.index') }}" class="nav-link {{ Route::currentRouteName() == 'materials*' ? 'active' : '' }} font-weight-medium"
             style="color: #000;">
             <p>
-              Bahan
+              Material
             </p>
           </a>
         </li>
@@ -39,7 +39,16 @@
           <a href="{{ route('bom.index') }}" class="nav-link {{ Route::currentRouteName() == 'bom*' ? 'active' : '' }} font-weight-medium"
             style="color: #000;">
             <p>
-              BoM
+              Bill of Material
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('mo.index') }}" class="nav-link {{ Route::currentRouteName() == 'mo*' ? 'active' : '' }} font-weight-medium"
+            style="color: #000;">
+            <p>
+              Manufacturing Order
             </p>
           </a>
         </li>
