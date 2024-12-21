@@ -110,4 +110,9 @@ class ManufacturingOrderController extends Controller
 
         return redirect()->route('mo.index')->with('success', 'MO berhasil diperbarui.');
     }
+    public function destroy(ManufacturingOrder $mo)
+    {
+        $mo->delete();
+        return redirect()->route('mo.index')->with('success', 'MO berhasil dihapus.');
+    }
 }

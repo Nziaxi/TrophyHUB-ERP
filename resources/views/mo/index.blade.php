@@ -10,6 +10,12 @@
       <h1 class="mb-4">Daftar Manufacturing Order</h1>
       <a href="{{ route('mo.create') }}" class="btn btn-primary">Tambah MO</a>
     </div>
+    @if (session('success'))
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
+    @endif
+
     @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
@@ -67,6 +73,12 @@
             </td>
             <td>
               <a href="{{ route('mo.edit', $mo->id) }}" class="btn btn-sm btn-primary">Edit</a>
+              <form action="{{ route('mo.destroy', $mo->id) }}" method="POST" style="display: inline-block;"
+                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+              </form>
             </td>
           </tr>
         @empty
