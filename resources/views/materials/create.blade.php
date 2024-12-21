@@ -41,7 +41,7 @@
                 <div class="form-group">
                   <label for="unit" style="color: #fff">Satuan Bahan</label>
                   <select name="unit" class="form-control select" style="width: 100%;" required>
-                    <option value="">Pilih Produk</option>
+                    <option value="">Pilih Satuan</option>
                     <option value="Kilometer">Kilometer</option>
                     <option value="Centimeter">Centimeter</option>
                     <option value="Kilogram">Kilogram</option>
@@ -63,11 +63,6 @@
           <!-- /.card -->
         </div>
         <!--/.col (left) -->
-        <!-- right column -->
-        <div class="col-md-6">
-
-        </div>
-        <!--/.col (right) -->
       </div>
       <!-- /.row -->
     </div><!-- /.container-fluid -->
