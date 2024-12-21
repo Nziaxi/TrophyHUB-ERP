@@ -1,0 +1,42 @@
+      <tbody>
+        @forelse ($manufacturingOrders as $index => $mo)
+          <tr onclick="window.location='{{ route('mo.edit', $mo->id) }}'" style="cursor: pointer;">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $mo->bom ? $mo->bom->bom_code : 'No BOM available' }}</td>
+            <td>
+              @if (now()->isSameDay($mo->scheduled_date))
+                Today
+              @elseif (now()->isTomorrow($mo->scheduled_date))
+                Tomorrow
+              @elseif (now()->diffInDays($mo->scheduled_date, false) > 0)
+                In {{ now()->diffInDays($mo->scheduled_date) }} days
+              @elseif (now()->diffInDays($mo->scheduled_date, false) < 0)
+                {{ now()->diffInDays($mo->scheduled_date) }} days ago
+              @endif
+            </td>
+            <td>{{ $mo->product->product_name }}</td>
+            <td>
+              @php
+                $isMaterialAvailable = true; // Logika Anda untuk mengecek ketersediaan material
+              @endphp
+              {{ $isMaterialAvailable ? 'Tersedia' : 'Belum Tersedia' }}
+            </td>
+            <td>{{ $mo->quantity }}</td>
+            <td>
+              <form action="{{ route('mo.update.status', $mo->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <select name="status" onchange="this.form.submit()">
+                  <option value="draft" {{ $mo->status == 'draft' ? 'selected' : '' }}>Draft</option>
+                  <option value="in_progress" {{ $mo->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                  <option value="completed" {{ $mo->status == 'completed' ? 'selected' : '' }}>Completed</option>
+                </select>
+              </form>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="7" class="text-center">Tidak ada data Manufacturing Order</td>
+          </tr>
+        @endforelse
+      </tbody>

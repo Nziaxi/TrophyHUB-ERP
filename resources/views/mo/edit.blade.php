@@ -83,6 +83,15 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label for="status">Status Produksi</label>
+        <select name="status" id="status" class="form-control">
+          <option value="draft" {{ $mo->status == 'draft' ? 'selected' : '' }}>Draft</option>
+          <option value="in_progress" {{ $mo->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+          <option value="completed" {{ $mo->status == 'completed' ? 'selected' : '' }}>Completed</option>
+        </select>
+      </div>
+
       <h5>Bahan</h5>
       <table class="table table-bordered">
         <thead>

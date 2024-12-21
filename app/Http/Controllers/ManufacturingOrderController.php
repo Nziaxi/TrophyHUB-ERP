@@ -77,6 +77,7 @@ class ManufacturingOrderController extends Controller
             'dateline' => 'required|date',
             'planning_date' => 'required|date',
             'responsible_person' => 'required|string|max:255',
+            'status' => 'required|in:draft,in_progress,completed',  // Validasi status
             'materials.*.material_id' => 'required|exists:material,id',
             'materials.*.required_quantity' => 'nullable|numeric|min:0',  // Nullable agar tidak wajib
             'materials.*.ordered_quantity' => 'nullable|numeric|min:0',  // Nullable agar tidak wajib
@@ -91,6 +92,7 @@ class ManufacturingOrderController extends Controller
             'dateline' => $validated['dateline'],
             'planning_date' => $validated['planning_date'],
             'responsible_person' => $validated['responsible_person'],
+            'status' => $validated['status'],
         ]);
 
         // Update pivot data untuk bahan
@@ -107,15 +109,5 @@ class ManufacturingOrderController extends Controller
         $mo->materials()->sync($materialsData);
 
         return redirect()->route('mo.index')->with('success', 'MO berhasil diperbarui.');
-    }
-
-    public function updateStatus(Request $request, ManufacturingOrder $mo)
-    {
-        $validated = $request->validate([
-            'status_production' => 'required|in:draft,in progress,completed',
-        ]);
-        $mo->status_production = $validated['status_production'];
-        $mo->save();
-        return redirect()->route('mo.edit', $mo->id)->with('success', 'Status produksi berhasil diperbarui.');
     }
 }

@@ -18,6 +18,7 @@ class ManufacturingOrder extends Model
         'scheduled_date',
         'responsible_person',
         'production_status',
+        'status'
     ];
 
     public function product()

@@ -29,11 +29,12 @@
           <th>Status Material</th>
           <th>Quantity</th>
           <th>Status Produksi</th>
+          <th>Aksi</th> <!-- Tombol edit untuk setiap row -->
         </tr>
       </thead>
       <tbody>
         @forelse ($manufacturingOrders as $index => $mo)
-          <tr onclick="window.location='{{ route('mo.edit', $mo->id) }}'" style="cursor: pointer;">
+          <tr>
             <td>{{ $index + 1 }}</td>
             <td>{{ $mo->bom ? $mo->bom->bom_code : 'No BOM available' }}</td>
             <td>
@@ -56,22 +57,24 @@
             </td>
             <td>{{ $mo->quantity }}</td>
             <td>
-              @if ($mo->status === 'draft')
-                Draft
-              @elseif ($mo->status === 'in_progress')
-                In Progress
-              @elseif ($mo->status === 'completed')
-                Completed
-              @endif
+              <span
+                class="badge
+                {{ $mo->status == 'draft' ? 'badge-secondary' : '' }}
+                {{ $mo->status == 'in_progress' ? 'badge-warning' : '' }}
+                {{ $mo->status == 'completed' ? 'badge-success' : '' }}">
+                {{ ucfirst($mo->status) }}
+              </span>
+            </td>
+            <td>
+              <a href="{{ route('mo.edit', $mo->id) }}" class="btn btn-sm btn-primary">Edit</a>
             </td>
           </tr>
         @empty
           <tr>
-            <td colspan="7" class="text-center">Tidak ada data Manufacturing Order</td>
+            <td colspan="8" class="text-center">Tidak ada data Manufacturing Order</td>
           </tr>
         @endforelse
       </tbody>
-
     </table>
   </div>
 @endsection
