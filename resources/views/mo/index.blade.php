@@ -33,9 +33,8 @@
       </thead>
       <tbody>
         @forelse ($manufacturingOrders as $index => $mo)
-          <tr>
+          <tr onclick="window.location='{{ route('mo.edit', $mo->id) }}'" style="cursor: pointer;">
             <td>{{ $index + 1 }}</td>
-            {{-- <td>{{ $mo->billOfMaterial->bom_code }}</td> --}}
             <td>{{ $mo->bom ? $mo->bom->bom_code : 'No BOM available' }}</td>
             <td>
               @if (now()->isSameDay($mo->scheduled_date))
@@ -72,6 +71,7 @@
           </tr>
         @endforelse
       </tbody>
+
     </table>
   </div>
 @endsection

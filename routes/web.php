@@ -39,3 +39,4 @@ Route::resource('bom', BomController::class)->names('bom');
 // Route::post('/bom/add', [BomController::class, 'store'])->name('bom.store');
 
 Route::resource('mo', ManufacturingOrderController::class)->names('mo');
+Route::put('/mo/{mo}/status', [ManufacturingOrderController::class, 'updateStatus'])->name('mo.update.status');
